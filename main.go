@@ -23,10 +23,11 @@ func sendMessageToUser(s *discordgo.Session, userID, content string) error {
 }
 
 func main() {
-	if err := godotenv.Load(); err != nil {
-		panic(err)
-	}
+	godotenv.Load()
 	token := os.Getenv("TOKEN")
+	if token == "" {
+		panic("Could not read TOKEN from environment variables")
+	}
 	session, err := discordgo.New("Bot " + token)
 	if err != nil {
 		panic(err)
